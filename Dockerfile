@@ -10,8 +10,11 @@ RUN apk add --update --no-cache ffmpeg py3-pip g++ make
 # Copy project files to workdir
 COPY . .
 
-# Install node modules + Build TypeScript files
-RUN npm ci && npm run build
+# Install node modules
+RUN npm ci
+
+# Build TypeScript files
+RUN npm run build
 
 # Run the bot
 CMD ["/bin/sh", "entrypoint.sh"]
