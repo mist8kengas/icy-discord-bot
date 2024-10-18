@@ -1,0 +1,12 @@
+services:
+  icy-discord-bot:
+    image: icy-discord-bot:latest
+    container_name: icy-discord-bot
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: ''
+      CLIENT_ID: ''
+      ICECAST_ENDPOINT: 'http://localhost:8000/stream'
+      XSPF_INTERVAL: 1000
+    # env_file:
+    #   - .env
