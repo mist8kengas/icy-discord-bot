@@ -29,6 +29,15 @@ See the `.env.example` file for more information
 
 ### Node.js
 
+Requirements:
+
+- `ffmpeg`
+- `python3`
+- `GNU c++`
+- `make`
+
+Installation:
+
 1. Clone repository:
    ```
    git clone https://github.com/mist8kengas/icy-discord-bot
