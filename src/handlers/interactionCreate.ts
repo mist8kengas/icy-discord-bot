@@ -13,29 +13,6 @@ export default async function interactionCreate(
     )
 
     if (!command) return
-
-    if (command.cooldown) {
-      // check cooldown
-      const cooldown = client.commandCooldown.list.get(
-        interaction.inGuild() ? interaction.guildId : interaction.user.id
-      )
-      if (cooldown && cooldown.getTime() > Date.now()) {
-        const secondsRemaining = new Date(
-          cooldown.getTime() - Date.now()
-        ).getUTCSeconds()
-
-        return void interaction.reply({
-          embeds: [
-            client
-              .createEmbed()
-              .setDescription(
-                `:warning: You must wait ${secondsRemaining} seconds before you can use this command!`
-              ),
-          ],
-        })
-      } else client.commandCooldown.list.delete(interaction.user.id)
-    }
-
     command.execute({ client, interaction }).catch(async error => {
       console.error('[interaction:error]', error)
       await interaction

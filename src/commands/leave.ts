@@ -10,7 +10,6 @@ const command: Command = {
     ) as SlashCommandBuilder,
   name: 'leave',
   description: 'Disconnect and stop playing music in the channel',
-  cooldown: true,
   async execute({ client, interaction }) {
     if (!interaction.isChatInputCommand()) return
     if (!interaction.inGuild())

@@ -1,6 +1,11 @@
 import { ChannelType, SlashCommandBuilder } from 'discord.js'
 import { Command } from '../index.js'
-import { getVoiceConnection, joinVoiceChannel } from '@discordjs/voice'
+import {
+  createAudioResource,
+  getVoiceConnection,
+  joinVoiceChannel,
+} from '@discordjs/voice'
+import { getStream } from '../utils/icecast.js'
 
 const command: Command = {
   data: new SlashCommandBuilder()
@@ -14,7 +19,6 @@ const command: Command = {
     ) as SlashCommandBuilder,
   name: 'play',
   description: 'Play music in the specified voice channel',
-  cooldown: true,
   async execute({ client, interaction }) {
     if (!interaction.isChatInputCommand()) return
     if (!interaction.inGuild())
@@ -40,6 +44,13 @@ const command: Command = {
       // @ts-ignore
       adapterCreator: interaction.guild!.voiceAdapterCreator,
     })
+
+    // read and create stream
+    const iceStream = await getStream(client.streamMetadata.endpointAudio)
+    if (!iceStream) throw new Error('Unable to fetch Icecast endpoint')
+
+    const stream = createAudioResource(iceStream)
+    client.audioPlayer.play(stream)
 
     const subscription = connection.subscribe(client.audioPlayer)
     if (!subscription) throw new Error('Unable to play audio in channel')

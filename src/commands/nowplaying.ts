@@ -10,7 +10,6 @@ const command: Command = {
     ) as SlashCommandBuilder,
   name: 'nowplaying',
   description: 'Display information about the current song',
-  cooldown: true,
   async execute({ client, interaction }) {
     if (!interaction.isChatInputCommand()) return
     if (!interaction.inGuild())

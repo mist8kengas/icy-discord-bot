@@ -40,10 +40,6 @@ const {
 export interface ExtendedClient extends Client {
   commands: Collection<string, Command>
   createEmbed: typeof createEmbed
-  commandCooldown: {
-    list: Collection<Snowflake, Date>
-    add: (id: Snowflake) => Collection<Snowflake, Date> | null
-  }
   streamMetadata: {
     interval?: NodeJS.Timeout
     title?: string
@@ -57,10 +53,6 @@ export interface Command {
   name: string
   description: string
   usage?: string
-  /**
-   * @description Enable this if the command has a cooldown
-   */
-  cooldown?: boolean
   execute: (data: {
     client: ExtendedClient
     interaction: CommandInteraction
@@ -102,18 +94,6 @@ for (const name of commandFiles) {
 // utils functions
 client.createEmbed = createEmbed
 
-// cooldown
-const commandCooldownList = new Collection<Snowflake, Date>()
-client.commandCooldown = {
-  list: commandCooldownList,
-  add: id => {
-    if (commandCooldownList.get(id)) return null
-
-    const cooldown = 10e3 // 10 second cooldown
-    return commandCooldownList.set(id, new Date(Date.now() + cooldown))
-  },
-}
-
 console.time('client-ready')
 client.once('ready', async () => {
   console.timeEnd('client-ready')
@@ -131,9 +111,6 @@ client.once('ready', async () => {
     if (client.streamMetadata.title != title) {
       client.streamMetadata.title = title
 
-      // temp
-      console.debug(client.streamMetadata.title)
-
       // update bot activity
       client.user?.setActivity({
         name: title,
@@ -141,13 +118,6 @@ client.once('ready', async () => {
       })
     }
   }, parseInt(XSPF_INTERVAL))
-
-  // read and create stream
-  const iceStream = await getStream(client.streamMetadata.endpointAudio)
-  if (!iceStream) throw new Error('Unable to fetch Icecast endpoint')
-
-  const stream = createAudioResource(iceStream)
-  client.audioPlayer.play(stream)
 })
 
 if (BOT_TOKEN)
