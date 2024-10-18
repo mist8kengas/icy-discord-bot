@@ -22,7 +22,7 @@ See the `.env.example` file for more information
    a. via `docker run`
 
    ```
-   docker run --name icy-discord-bot --restart unless-stopped --env-file .env icy-discord-bot:latest
+   docker run --name icy-discord-bot --restart unless-stopped --env-file .env ghcr.io/mist8kengas/icy-discord-bot:latest
    ```
 
    b. via `docker compose` (see `docker-compose.yml`)

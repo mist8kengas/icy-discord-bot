@@ -1,6 +1,6 @@
 services:
   icy-discord-bot:
-    image: icy-discord-bot:latest
+    image: ghcr.io/mist8kengas/icy-discord-bot:latest
     container_name: icy-discord-bot
     restart: unless-stopped
     environment:
