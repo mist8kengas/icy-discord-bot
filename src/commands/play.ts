@@ -1,10 +1,7 @@
 import { ChannelType, SlashCommandBuilder } from 'discord.js'
 import { Command } from '../index.js'
-import {
-  createAudioResource,
-  getVoiceConnection,
-  joinVoiceChannel,
-} from '@discordjs/voice'
+
+import { createAudioResource, joinVoiceChannel } from '@discordjs/voice'
 import { getStream } from '../utils/icecast.js'
 
 const command: Command = {

@@ -1,6 +1,7 @@
-import { ChannelType, SlashCommandBuilder } from 'discord.js'
+import { SlashCommandBuilder } from 'discord.js'
 import { Command } from '../index.js'
-import { getVoiceConnection, joinVoiceChannel } from '@discordjs/voice'
+
+import { getVoiceConnection } from '@discordjs/voice'
 
 const command: Command = {
   data: new SlashCommandBuilder()

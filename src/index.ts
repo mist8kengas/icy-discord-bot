@@ -7,7 +7,6 @@ import {
   Client,
   Collection,
   CommandInteraction,
-  Snowflake,
   Partials,
   IntentsBitField,
   Events,
@@ -15,16 +14,11 @@ import {
   ActivityType,
 } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
-import {
-  AudioPlayer,
-  createAudioPlayer,
-  createAudioResource,
-  getVoiceConnections,
-} from '@discordjs/voice'
+import { AudioPlayer, createAudioPlayer } from '@discordjs/voice'
 
-import { getCurrentTitle, getStream, getXspfData } from './utils/icecast.js'
-import { createEmbed } from './utils/embed.js'
 import interactionCreate from './handlers/interactionCreate.js'
+import { getCurrentTitle, getXspfData } from './utils/icecast.js'
+import { createEmbed } from './utils/embed.js'
 
 //
 // setup .env
